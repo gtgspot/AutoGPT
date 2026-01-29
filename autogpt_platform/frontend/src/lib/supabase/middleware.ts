@@ -1,14 +1,10 @@
-import { createServerClient } from "@supabase/ssr";
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-
-type CookiesSetOptions = Parameters<
-  ReturnType<typeof NextResponse.next>["cookies"]["set"]
->[2];
 
 type CookieToSet = {
   name: string;
   value: string;
-  options?: CookiesSetOptions;
+  options?: CookieOptions;
 };
 
 export async function updateSession(request: NextRequest) {
