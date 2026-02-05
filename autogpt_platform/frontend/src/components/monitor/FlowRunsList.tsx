@@ -21,35 +21,37 @@ export const FlowRunsList: React.FC<{
   onSelectRun: (r: FlowRun) => void;
 }> = ({ flows, runs, selectedRun, onSelectRun, className }) => (
   <Card className={className}>
-    <CardHeader>
-      <CardTitle>Runs</CardTitle>
+    <CardHeader className="pb-3">
+      <CardTitle className="text-base font-semibold tracking-tight">Runs</CardTitle>
     </CardHeader>
     <CardContent>
       <Table>
         <TableHeader>
-          <TableRow>
-            <TableHead>Agent</TableHead>
+          <TableRow className="hover:bg-transparent">
+            <TableHead className="w-[36%]">Agent</TableHead>
             <TableHead>Started</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead>Duration</TableHead>
+            <TableHead className="text-right">Duration</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {runs.map((run) => (
             <TableRow
               key={run.id}
-              className="cursor-pointer"
+              className="cursor-pointer transition-colors hover:bg-muted/60"
               onClick={() => onSelectRun(run)}
               data-state={selectedRun?.id == run.id ? "selected" : null}
             >
-              <TableCell>
+              <TableCell className="font-medium">
                 {flows.find((f) => f.id == run.graphID)!.name}
               </TableCell>
               <TableCell>{moment(run.startTime).format("HH:mm")}</TableCell>
               <TableCell>
                 <FlowRunStatusBadge status={run.status} />
               </TableCell>
-              <TableCell>{formatDuration(run.duration)}</TableCell>
+              <TableCell className="text-right tabular-nums">
+                {formatDuration(run.duration)}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

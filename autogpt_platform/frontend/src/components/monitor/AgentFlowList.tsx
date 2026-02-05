@@ -52,8 +52,8 @@ export const AgentFlowList = ({
 
   return (
     <Card className={className}>
-      <CardHeader className="flex-row items-center justify-between space-x-3 space-y-0">
-        <CardTitle>Agents</CardTitle>
+      <CardHeader className="flex-row items-center justify-between space-x-3 space-y-0 pb-3">
+        <CardTitle className="text-base font-semibold tracking-tight">Agents</CardTitle>
 
         <div className="flex items-center">
           {/* Split "Create" button */}
@@ -66,7 +66,7 @@ export const AgentFlowList = ({
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="outline"
-                  className={"rounded-l-none border-l-0 px-2"}
+                  className={"rounded-l-none border-l-0 px-2 hover:bg-muted/80"}
                 >
                   <ChevronDownIcon />
                 </Button>
@@ -118,8 +118,8 @@ export const AgentFlowList = ({
       <CardContent>
         <Table>
           <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
+            <TableRow className="hover:bg-transparent">
+              <TableHead className="w-[46%]">Name</TableHead>
               {/* <TableHead>Status</TableHead> */}
               {/* <TableHead>Last updated</TableHead> */}
               {flowRuns && (
@@ -158,25 +158,28 @@ export const AgentFlowList = ({
               .map(({ flow, runCount, lastRun }) => (
                 <TableRow
                   key={flow.id}
-                  className="cursor-pointer"
+                  className="cursor-pointer transition-colors hover:bg-muted/60"
                   onClick={() => onSelectFlow(flow)}
                   data-state={selectedFlow?.id == flow.id ? "selected" : null}
                 >
-                  <TableCell>{flow.name}</TableCell>
+                  <TableCell className="font-medium">{flow.name}</TableCell>
                   {/* <TableCell><FlowStatusBadge status={flow.status ?? "active"} /></TableCell> */}
                   {/* <TableCell>
                   {flow.updatedAt ?? "???"}
                 </TableCell> */}
                   {flowRuns && (
                     <TableCell className="md:hidden lg:table-cell">
-                      {runCount}
+                      <span className="tabular-nums">{runCount}</span>
                     </TableCell>
                   )}
                   {flowRuns &&
                     (!lastRun ? (
                       <TableCell />
                     ) : (
-                      <TableCell title={moment(lastRun.startTime).toString()}>
+                      <TableCell
+                        className="text-muted-foreground"
+                        title={moment(lastRun.startTime).toString()}
+                      >
                         {moment(lastRun.startTime).fromNow()}
                       </TableCell>
                     ))}

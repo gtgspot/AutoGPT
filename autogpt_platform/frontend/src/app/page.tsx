@@ -49,12 +49,16 @@ const Monitor = () => {
     return () => clearInterval(intervalId);
   }, [fetchAgents, flows]);
 
-  const column1 = "md:col-span-2 xl:col-span-3 xxl:col-span-2";
-  const column2 = "md:col-span-3 lg:col-span-2 xl:col-span-3 space-y-4";
-  const column3 = "col-span-full xl:col-span-4 xxl:col-span-5";
+  const monitorGrid =
+    "grid grid-cols-1 gap-4 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-10";
+  const panelClass =
+    "border-border/60 bg-card/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-card/75";
+  const column1 = `${panelClass} md:col-span-2 xl:col-span-3 xxl:col-span-2`;
+  const column2 = `${panelClass} md:col-span-3 space-y-4 lg:col-span-2 xl:col-span-3`;
+  const column3 = `${panelClass} col-span-full xl:col-span-4 xxl:col-span-5`;
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-10">
+    <div className={monitorGrid}>
       <AgentFlowList
         className={column1}
         flows={flows}
